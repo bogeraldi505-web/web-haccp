@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Laporan HACCP</title>
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --border-color: #d1d5db;
+            --primary-btn: #10b981;
+            --secondary-btn: #06b6d4;
+            --gray-btn: #6b7280;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .action-buttons button {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-export { background-color: var(--primary-btn); }
+        .btn-print { background-color: var(--secondary-btn); }
+        .btn-reset { background-color: var(--gray-btn); }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .checkbox-group-title {
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .checkbox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+        .subtitle {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* Area khusus print agar form hilang dan hanya hasil cetak yang muncul (Opsional) */
+        @media print {
+            .action-buttons { display: none; }
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: none; margin-bottom: 10px; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="action-buttons">
+        <button class="btn-export" onclick="alert('Fitur Export PDF otomatis memerlukan setup backend/library tambahan (seperti jsPDF). Silakan gunakan tombol Print di bawah ini untuk sementara.')">⬇ Export ke PDF (Otomatis)</button>
+        <button class="btn-print" onclick="window.print()">🖨 Print / Save as PDF (Browser)</button>
+        <button class="btn-reset" onclick="document.getElementById('haccpForm').reset()">Buat Baru</button>
+    </div>
+
+    <form id="haccpForm">
+        <div class="card">
+            <div class="form-group">
+                <label>Distribusi</label>
+                <input type="text" class="form-control" value="Dori">
+            </div>
+            <div class="form-group">
+                <label>K3</label>
+                <input type="text" class="form-control" value="Sarah">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. Informasi Menu</h2>
+            <div class="form-group">
+                <label>Nama Menu / Masakan:</label>
+                <input type="text" class="form-control" placeholder="Contoh: Ayam Katsu, Telur Balado, Sayur...">
+            </div>
+            <div class="form-group">
+                <label>Deskripsi Singkat Menu:</label>
+                <textarea class="form-control" placeholder="Contoh: Produk berupa masakan..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Proses Pengolahan (satu langkah per baris, akan jadi nomor otomatis):</label>
+                <textarea class="form-control" placeholder="Contoh:&#10;Potong bahan sesuai ukuran porsi&#10;Marinasi/bumbui&#10;Masak hingga matang sempurna&#10;Angkat dan tiriskan" style="min-height: 120px;"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Metode Pengemasan:</label>
+                <input type="text" class="form-control" value="Wadah makanan (ompreng/lunch box)">
+            </div>
+            <div class="form-group">
+                <label>Umur Simpan Setelah Masak:</label>
+                <input type="text" class="form-control" value="Maksimal 4 jam pada suhu ruang">
+            </div>
+            <div class="form-group">
+                <label>Target Konsumen:</label>
+                <input type="text" class="form-control" value="Penerima manfaat (PAUD/TK/SD/SMP/SMA)">
+            </div>
+            <div class="form-group">
+                <label>Kondisi Penyimpanan:</label>
+                <input type="text" class="form-control" value="Disimpan pada suhu ruang dan harus segera dikonsumsi">
+            </div>
+            <div class="form-group">
+                <label>Distribusi:</label>
+                <input type="text" class="form-control" value="Menggunakan kendaraan tertutup, langsung diantar">
+            </div>
+            <div class="form-group">
+                <label>Penjualan:</label>
+                <input type="text" class="form-control" value="Tidak diperjualbelikan">
+            </div>
+            <div class="form-group">
+                <label>Cara Penggunaan / Penyajian:</label>
+                <input type="text" class="form-control" value="Dalam waktu maksimal sesuai umur simpan setelah dibuka.">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>4. Komposisi Bahan (Pilih semua yang digunakan)</h2>
+            <p class="subtitle">Setiap menu berbeda komposisinya — pilih sesuai resep menu yang dibuat. Jika ada bahan yang tidak tercantum, tambahkan di kolom "Bahan Lainnya".</p>
+            
+            <div class="checkbox-group-title">Lauk Hewani</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Daging Ayam</label>
+                <label class="checkbox-item"><input type="checkbox"> Daging Sapi</label>
+                <label class="checkbox-item"><input type="checkbox"> Ikan (Dori/Tongkol/dll)</label>
+                <label class="checkbox-item"><input type="checkbox"> Telur Ayam/Bebek</label>
+                <label class="checkbox-item"><input type="checkbox"> Susu / Olahan Susu</label>
+            </div>
+
+            <div class="checkbox-group-title">Lauk Nabati & Karbohidrat</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Tahu / Tempe</label>
+                <label class="checkbox-item"><input type="checkbox"> Kacang-kacangan</label>
+                <label class="checkbox-item"><input type="checkbox"> Beras</label>
+                <label class="checkbox-item"><input type="checkbox"> Kentang</label>
+                <label class="checkbox-item"><input type="checkbox"> Mie / Bihun</label>
+            </div>
+
+            <div class="checkbox-group-title">Sayur, Buah & Jamur</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Sayuran (Wortel, Buncis, Sawi, dll)</label>
+                <label class="checkbox-item"><input type="checkbox"> Buah Segar</label>
+                <label class="checkbox-item"><input type="checkbox"> Jamur</label>
+            </div>
+
+            <div class="checkbox-group-title">Bumbu & Bahan Penunjang</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Tepung (Terigu, Maizena, Panir)</label>
+                <label class="checkbox-item"><input type="checkbox"> Bumbu Kering (Garam, Lada, Kaldu)</label>
+                <label class="checkbox-item"><input type="checkbox"> Bumbu Basah (Bawang, Cabai)</label>
+                <label class="checkbox-item"><input type="checkbox"> Minyak Goreng</label>
+                <label class="checkbox-item"><input type="checkbox"> Santan / Santan Instan</label>
+                <label class="checkbox-item"><input type="checkbox"> Saus & Kecap</label>
+                <label class="checkbox-item"><input type="checkbox"> Gula</label>
+                <label class="checkbox-item"><input type="checkbox"> Air (Air Minum/Masak)</label>
+            </div>
+
+            <div class="checkbox-group-title">Rempah Segar & Aromatik</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Jahe</label>
+                <label class="checkbox-item"><input type="checkbox"> Lengkuas</label>
+                <label class="checkbox-item"><input type="checkbox"> Sereh (Serai)</label>
+                <label class="checkbox-item"><input type="checkbox"> Kunyit</label>
+                <label class="checkbox-item"><input type="checkbox"> Bawang Bombay</label>
+                <label class="checkbox-item"><input type="checkbox"> Daun Salam</label>
+                <label class="checkbox-item"><input type="checkbox"> Daun Jeruk Purut</label>
+                <label class="checkbox-item"><input type="checkbox"> Kemiri</label>
+                <label class="checkbox-item"><input type="checkbox"> Ketumbar</label>
+                <label class="checkbox-item"><input type="checkbox"> Pala</label>
+                <label class="checkbox-item"><input type="checkbox"> Cengkeh</label>
+            </div>
+
+            <div class="checkbox-group-title">Saus & Kecap Khusus</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Saos Tiram</label>
+                <label class="checkbox-item"><input type="checkbox"> Saos Teriyaki</label>
+                <label class="checkbox-item"><input type="checkbox"> Saos/Cabai Delmonte</label>
+                <label class="checkbox-item"><input type="checkbox"> Saos Hotone</label>
+                <label class="checkbox-item"><input type="checkbox"> Kecap Asin</label>
+                <label class="checkbox-item"><input type="checkbox"> Minyak Wijen</label>
+                <label class="checkbox-item"><input type="checkbox"> Minyak Ikan / Fish Oil</label>
+            </div>
+
+            <div class="checkbox-group-title">Tepung & Bahan Pengembang</div>
+            <div class="checkbox-list">
+                <label class="checkbox-item"><input type="checkbox"> Tepung Tapioka</label>
+                <label class="checkbox-item"><input type="checkbox"> Maizena (Tepung Jagung)</label>
+                <label class="checkbox-item"><input type="checkbox"> Tepung Beras</label>
+                <label class="checkbox-item"><input type="checkbox"> Baking Powder & Baking Soda</label>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label>Bahan Lainnya (pisahkan dengan koma, jika ada bahan khusus tidak tercantum di atas):</label>
+                <input type="text" class="form-control" placeholder="Contoh: Kerupuk, Margarin, dll">
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
